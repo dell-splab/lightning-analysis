@@ -15,4 +15,4 @@ jupyter notebook
 
 1. Go to [anconda products](https://www.anaconda.com/products/distribution) and download & install Anaconda Distribution.
 2. During installation you must `Add Anaconda to my PATH environment variable`
-4. Open Anaconda Navigator and launch Jupyter Notebook
+4. Open Anaconda Navigator and launch Jupyter Notebook or via Anaconda prompt running `jupyter notebook`.
