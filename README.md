@@ -44,7 +44,7 @@ jupyter notebook
 |1. | Active reports | Jeferson | :frog: | `DONE` |
 |1.1. | What are the most frequently run reports? | Jeferson | :frog: | `DONE` |
 |1.2. | How long has each report been running? | Jeferson || `DONE`|
-|1.3. | How long does it take to a page load these reports?| Izaquiel || `REVIEW`|
+|1.3. | How long does it take to a page load these reports?| Izaquiel || `DONE`|
 |1.3.1. | What types of errors are associated with longer duration reports according to the EFFECTIVE_PAGE_TIME?| Izaquiel ||`STARTED`|
 
 #### Performance
