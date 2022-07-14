@@ -109,7 +109,7 @@ jupyter notebook
 
 | | NB | Owner | Splunk | Status |
 |-|-|-|-|-|
-| 1. | Problematic reports regarding errors| Gabriela | | `TODO`|
+| 1. | Problematic reports regarding errors| Gabriela | | `DONE`|
 | 1.1. | What is the trend for the errors? | ||`TODO`|
 | 1.1.1. | Are the errors coming from specific pages?| ||`TODO` |
 | 1.1.2. | What region do most of the errors come from?| ||`TODO` |
