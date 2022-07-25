@@ -43,19 +43,73 @@ index=pcf_lightning-cns cf_org_name=CNSCRMOrg cf_app_name=cns-platform-events-lo
 | eval ReportId=substr('msg.content.RecordId', 1, 15) 
 | eval DurationInSecs=tonumber('msg.content.Duration')/1000
 | eval DurationInMinutes=tonumber('msg.content.Duration')/60000  
-| rename 
+| rename
+  "msg.content.AppName" as AppName,
+  "msg.content.ConnectionType" as ConnectionType,
+  "msg.content.CreatedById" as CreatedById,
+  "msg.content.CreatedDate" as CreatedDate,
+  "msg.content.DeviceId" as DeviceId,
+  "msg.content.DeviceModel" as DeviceModel,
+  "msg.content.DevicePlatform" as DevicePlatform,
+  "msg.content.DeviceSessionId" as DeviceSessionId,
   "msg.content.Duration" as Duration,
+  "msg.content.EffectivePageTime" as EffectivePageTime,
+  "msg.content.EventDate" as EventDate,
+  "msg.content.EventIdentifier" as EventIdentifier,
   "msg.content.Operation" as OperationType,
+  "msg.content.OsName" as OsName,
+  "msg.content.OsVersion" as OsVersion,
+  "msg.content.PageStartTime" as PageStartTime,
+  "msg.content.PageUrl" as PageUrl,
+  "msg.content.PreviousPageAppName" as PreviousPageAppName,
+  "msg.content.PreviousPageEntityId" as PreviousPageEntityId,
+  "msg.content.PreviousPageEntityType" as PreviousPageEntityType,
+  "msg.content.PreviousPageUrl" as PreviousPageUrl,
   "msg.content.QueriedEntities" as LeftQueriedEntities,
-  "msg.content.Username" as Username
-| fields 
-  ReportId, 
-  OperationType,
+  "msg.content.RecordId" as RecordId,
+  "msg.content.SdkAppType" as SdkAppType,
+  "msg.content.SdkAppVersion" as SdkAppVersion,
+  "msg.content.SdkVersion" as SdkVersion,
+  "msg.content.SessionLevel" as SessionLevel,
+  "msg.content.SourceIp" as SourceIp,
+  "msg.content.UserId" as UserId,
+  "msg.content.Username" as Username,
+  "msg.content.UserType" as UserType
+| fields
+  AppName,
+  ConnectionType,
+  CreatedById,
+  CreatedDate,
+  DeviceId,
+  DeviceModel,
+  DevicePlatform,
+  DeviceSessionId,
   Duration,
   DurationInSecs,
   DurationInMinutes,
-  LtngUriEventQueriedEntities,
-  Username
+  EffectivePageTime,
+  EventDate,
+  EventIdentifier,
+  OperationType,
+  OsName,
+  OsVersion,
+  PageStartTime,
+  PageUrl,
+  PreviousPageAppName,
+  PreviousPageEntityId,
+  PreviousPageEntityType,
+  PreviousPageUrl,
+  LeftQueriedEntities,
+  RecordId,
+  ReportId,
+  SdkAppType,
+  SdkAppVersion,
+  SdkVersion,
+  SessionLevel,
+  SourceIp,
+  UserId,
+  Username,
+  UserType
 | join 
   ReportId 
 [ 
@@ -114,24 +168,79 @@ All possible fields according to [LightningUriEventStream](https://developer.sal
 
 ```
 index=pcf_lightning-cns cf_org_name=CNSCRMOrg cf_app_name=cns-platform-events-logger 
-  "msg.channelId"="/event/LightningUriEventStream" 
-  "msg.content.EffectivePageTime"=0 "msg.content.Duration">60000
+  "msg.channelId"="/event/LightningUriEventStream"
+  "msg.content.EffectivePageTime"=0 
+  "msg.content.Duration">60000
 | eval ReportId=substr('msg.content.RecordId', 1, 15) 
 | eval DurationInSecs=tonumber('msg.content.Duration')/1000
 | eval DurationInMinutes=tonumber('msg.content.Duration')/60000  
-| rename 
+| rename
+  "msg.content.AppName" as AppName,
+  "msg.content.ConnectionType" as ConnectionType,
+  "msg.content.CreatedById" as CreatedById,
+  "msg.content.CreatedDate" as CreatedDate,
+  "msg.content.DeviceId" as DeviceId,
+  "msg.content.DeviceModel" as DeviceModel,
+  "msg.content.DevicePlatform" as DevicePlatform,
+  "msg.content.DeviceSessionId" as DeviceSessionId,
   "msg.content.Duration" as Duration,
+  "msg.content.EffectivePageTime" as EffectivePageTime,
+  "msg.content.EventDate" as EventDate,
+  "msg.content.EventIdentifier" as EventIdentifier,
   "msg.content.Operation" as OperationType,
+  "msg.content.OsName" as OsName,
+  "msg.content.OsVersion" as OsVersion,
+  "msg.content.PageStartTime" as PageStartTime,
+  "msg.content.PageUrl" as PageUrl,
+  "msg.content.PreviousPageAppName" as PreviousPageAppName,
+  "msg.content.PreviousPageEntityId" as PreviousPageEntityId,
+  "msg.content.PreviousPageEntityType" as PreviousPageEntityType,
+  "msg.content.PreviousPageUrl" as PreviousPageUrl,
   "msg.content.QueriedEntities" as LeftQueriedEntities,
-  "msg.content.Username" as Username
-| fields 
-  ReportId, 
-  OperationType,
+  "msg.content.RecordId" as RecordId,
+  "msg.content.SdkAppType" as SdkAppType,
+  "msg.content.SdkAppVersion" as SdkAppVersion,
+  "msg.content.SdkVersion" as SdkVersion,
+  "msg.content.SessionLevel" as SessionLevel,
+  "msg.content.SourceIp" as SourceIp,
+  "msg.content.UserId" as UserId,
+  "msg.content.Username" as Username,
+  "msg.content.UserType" as UserType
+| fields
+  AppName,
+  ConnectionType,
+  CreatedById,
+  CreatedDate,
+  DeviceId,
+  DeviceModel,
+  DevicePlatform,
+  DeviceSessionId,
   Duration,
   DurationInSecs,
   DurationInMinutes,
-  LtngUriEventQueriedEntities,
-  Username
+  EffectivePageTime,
+  EventDate,
+  EventIdentifier,
+  OperationType,
+  OsName,
+  OsVersion,
+  PageStartTime,
+  PageUrl,
+  PreviousPageAppName,
+  PreviousPageEntityId,
+  PreviousPageEntityType,
+  PreviousPageUrl,
+  LeftQueriedEntities,
+  RecordId,
+  ReportId,
+  SdkAppType,
+  SdkAppVersion,
+  SdkVersion,
+  SessionLevel,
+  SourceIp,
+  UserId,
+  Username,
+  UserType
 | join 
   ReportId 
 [ 
