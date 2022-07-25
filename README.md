@@ -37,49 +37,71 @@ All possible fields according to [ReportEventStream](https://developer.salesforc
 
 ```
 index=pcf_lightning-cns cf_org_name=CNSCRMOrg cf_app_name=cns-platform-events-logger 
-  "msg.content.Operation"=ReportRunFromLightning
+  "msg.channelId"="/event/LightningUriEventStream"
+| eval ReportId=substr('msg.content.RecordId', 1, 15) 
+| eval DurationInSecs=tonumber('msg.content.Duration')/1000
+| eval DurationInMinutes=tonumber('msg.content.Duration')/60000  
 | rename 
-  "msg.content.ColumnHeaders" as ColumnHeaders,
-  "msg.content.DashboardId" as DashboardId,
-  "msg.content.DashboardName" as DashboardName,
-  "msg.content.Description" as Description,
-  "msg.content.DisplayedFieldEntities" as DisplayedFieldEntities,
-  "msg.content.EvaluationTime" as EvaluationTime,
-  "msg.content.ExportFileFormat" as ExportFileFormat,
-  "msg.content.Format" as Format,
-  "msg.content.GroupedColumnHeaders" as GroupedColumnHeaders,
-  "msg.content.Name" as Name,
-  "msg.content.NumberOfColumns" as NumberOfColumns,
-  "msg.content.OwnerId" as OwnerId,
-  "msg.content.QueriedEntities" as QueriedEntities,
-  "msg.content.ReportId" as ReportId,
-  "msg.content.RowsProcessed" as RowsProcessed,
-  "msg.content.RowsReturned" as RowsReturned,
-  "msg.content.Scope" as Scope,
-  "msg.content.Sequence" as Sequence,
-  "msg.content.SessionLevel" as SessionLevel,
-  "msg.content.SourceIp" as SourceIp
-| fields
-  ColumnHeaders,
-  DashboardId,
-  DashboardName,
-  Description,
-  DisplayedFieldEntities,
-  EvaluationTime,
-  ExportFileFormat,
-  Format,
-  GroupedColumnHeaders,
-  Name,
-  NumberOfColumns,
-  OwnerId,
-  QueriedEntities,
-  ReportId,
-  RowsProcessed,
-  RowsReturned,
-  Scope,
-  Sequence,
-  SessionLevel,
-  SourceIp
+  "msg.content.Duration" as Duration,
+  "msg.content.Operation" as OperationType,
+  "msg.content.QueriedEntities" as LeftQueriedEntities,
+  "msg.content.Username" as Username
+| fields 
+  ReportId, 
+  OperationType,
+  Duration,
+  DurationInSecs,
+  DurationInMinutes,
+  LtngUriEventQueriedEntities,
+  Username
+| join 
+  ReportId 
+[ 
+  search index=pcf_lightning-cns cf_org_name=CNSCRMOrg cf_app_name=cns-platform-events-logger 
+    "msg.content.Operation"=ReportRunFromLightning
+  | rename 
+    "msg.content.ColumnHeaders" as ColumnHeaders,
+    "msg.content.DashboardId" as DashboardId,
+    "msg.content.DashboardName" as DashboardName,
+    "msg.content.Description" as Description,
+    "msg.content.DisplayedFieldEntities" as DisplayedFieldEntities,
+    "msg.content.EvaluationTime" as EvaluationTime,
+    "msg.content.ExportFileFormat" as ExportFileFormat,
+    "msg.content.Format" as Format,
+    "msg.content.GroupedColumnHeaders" as GroupedColumnHeaders,
+    "msg.content.Name" as Name,
+    "msg.content.NumberOfColumns" as NumberOfColumns,
+    "msg.content.OwnerId" as OwnerId,
+    "msg.content.QueriedEntities" as QueriedEntities,
+    "msg.content.ReportId" as ReportId,
+    "msg.content.RowsProcessed" as RowsProcessed,
+    "msg.content.RowsReturned" as RowsReturned,
+    "msg.content.Scope" as Scope,
+    "msg.content.Sequence" as Sequence,
+    "msg.content.SessionLevel" as SessionLevel,
+    "msg.content.SourceIp" as SourceIp
+  | fields 
+    ColumnHeaders,
+    DashboardId,
+    DashboardName,
+    Description,
+    DisplayedFieldEntities,
+    EvaluationTime,
+    ExportFileFormat,
+    Format,
+    GroupedColumnHeaders,
+    Name,
+    NumberOfColumns,
+    OwnerId,
+    QueriedEntities,
+    ReportId,
+    RowsProcessed,
+    RowsReturned,
+    Scope,
+    Sequence,
+    SessionLevel,
+    SourceIp
+]
 ```
 
 ### Active and problematic reports regarding time
