@@ -29,6 +29,8 @@ jupyter notebook
 
 Only Lightning events.
 
+A join between LightningUriEventStream and ReportEventStream events on ReportId.
+
 ### Active reports
 
 All possible fields according to [ReportEventStream](https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_reporteventstream.htm).
@@ -107,20 +109,6 @@ index=pcf_lightning-cns cf_org_name=CNSCRMOrg cf_app_name=cns-platform-events-lo
 ### Active and problematic reports regarding time
 
 All possible fields according to [LightningUriEventStream](https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_reporteventstream.htm).
-
-The `TIME_PROBLEMATIC_REPORTS_QUERY` is a join between LightningUriEventStream and ReportEventStream events on ReportId.
-
-```
-index=pcf_lightning-cns cf_org_name=CNSCRMOrg cf_app_name=cns-platform-events-logger 
-  "msg.channelId"="/event/LightningUriEventStream" 
-  "msg.content.EffectivePageTime"=0 "msg.content.Duration">60000
-| eval ReportId=substr('msg.content.RecordId', 1, 15)
-| join 
-  ReportId 
-[ 
-  search ACTIVE_REPORTS_QUERY
-]
-```
 
 `TIME_PROBLEMATIC_REPORTS_QUERY`:
 
